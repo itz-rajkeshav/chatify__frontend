@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { FaCamera, FaUser, FaPencilAlt, FaSave } from "react-icons/fa";
 import StatusSelect from "./StatusSelect";
+import { useSelector } from "react-redux";
 
 function Setting() {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState("Your Name");
-  const [email, setEmail] = useState("Your email");
+  // const [name, setName] = useState("Your Name");
+  // const [email, setEmail] = useState("Your email");
   const [location, setLocation] = useState("Your location");
-
+  const { email, name, username } = useSelector((state) => {
+    return state.User;
+  });
   const handleSave = () => {
     setIsEditing(!isEditing);
   };
@@ -112,7 +115,7 @@ function Setting() {
               className="text-gray-900 outline-none border border-gray-300 rounded px-2 py-1"
             />
           ) : (
-            <div className="text-gray-900">{name}</div>
+            <div className="text-gray-900">{name || "Your Name"}</div>
           )}
         </div>
 
@@ -128,7 +131,7 @@ function Setting() {
               className="text-gray-900 outline-none border border-gray-300 rounded px-2 py-1"
             />
           ) : (
-            <div className="text-gray-900">{email}</div>
+            <div className="text-gray-900">{email || "your email"}</div>
           )}
         </div>
 
@@ -136,7 +139,7 @@ function Setting() {
           <div className="text-gray-400">
             <p>Username</p>
           </div>
-          <div className="text-gray-900">Your Username</div>
+          <div className="text-gray-900">{username}</div>
         </div>
 
         <div className="mt-3 ml-5">

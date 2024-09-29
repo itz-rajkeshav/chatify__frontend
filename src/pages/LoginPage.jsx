@@ -22,6 +22,7 @@ function LoginPage() {
     formData.forEach((value, key) => {
       dataObject[key] = value;
     });
+
     // Convert the object to JSON
     const jsonData = JSON.stringify(dataObject);
     try {
@@ -40,6 +41,7 @@ function LoginPage() {
         position: "top-center",
         autoClose: 3000,
       });
+      navigate("/chat");
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong", {
@@ -51,6 +53,7 @@ function LoginPage() {
   };
   return (
     <div className="bg-customGreen w-full h-screen flex items-center justify-end">
+      <ToastContainer />
       <div className="h-screen flex-1 flex flex-col  items-center">
         <div className="text-center mb-8 mt-20">
           <div className="flex items-center justify-center gap-2">
