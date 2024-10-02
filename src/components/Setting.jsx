@@ -2,21 +2,34 @@ import React, { useState } from "react";
 import { FaCamera, FaUser, FaPencilAlt, FaSave } from "react-icons/fa";
 import StatusSelect from "./StatusSelect";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Setting() {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  // const [name, setName] = useState("Your Name");
-  // const [email, setEmail] = useState("Your email");
   const [location, setLocation] = useState("Your location");
-  const { email, name, username } = useSelector((state) => {
+  const navigate = useNavigate();
+  const { email, name, userName } = useSelector((state) => {
     return state.User;
   });
   const handleSave = () => {
     setIsEditing(!isEditing);
   };
-
+  const handleLogout = async () => {
+    localStorage.removeItem("accessToken", "");
+    console.log(localStorage);
+    navigate("/login");
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/users/logout"
+      );
+      console.log("user logout successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleBackgroundChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -32,10 +45,11 @@ function Setting() {
       setProfileImage(imageUrl);
     }
   };
+  console.log(userName);
 
   return (
     <>
-      <div className="w-80 h-screen bg-white-100 overflow-y-auto shadow-lg">
+      <div className="w-80 h-screen bg-white-100  shadow-lg">
         <div
           className="w-80 h-40 bg-customGreen relative"
           style={{
@@ -91,7 +105,7 @@ function Setting() {
         </div>
 
         <div className="text-gray-300">
-          <p>______________________________________________________</p>
+          <p>________________________________________________</p>
         </div>
 
         <div className="text-gray-600 flex items-center gap-28 mt-4 ml-3">
@@ -139,7 +153,7 @@ function Setting() {
           <div className="text-gray-400">
             <p>Username</p>
           </div>
-          <div className="text-gray-900">{username}</div>
+          <div className="text-gray-900">{userName}</div>
         </div>
 
         <div className="mt-3 ml-5">
@@ -166,9 +180,17 @@ function Setting() {
               <FaSave className="inline-block mr-2" />
               Save
             </button>
-            {/* at the time of handleing the state remember to implement the value section in the input to save the  data and scahne the handlesaave */}
           </div>
         )}
+        <footer>
+          <button
+            type="submit"
+            onClick={handleLogout}
+            className="w-80 h-10 bg-customGreen text-white font-kosugi bottom-0 fixed "
+          >
+            Logout
+          </button>
+        </footer>
       </div>
     </>
   );

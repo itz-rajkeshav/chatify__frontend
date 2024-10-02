@@ -4,10 +4,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { setName, setEmail, setuserName } from "../components/UserSlice.js";
 function LoginPage() {
   const [Visiblity, setVisiblity] = useState("false");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleVisibility = () => {
     setVisiblity(!Visiblity);
   };
@@ -35,13 +38,34 @@ function LoginPage() {
           },
         }
       );
-      console.log("user login ", response.data);
-      toast.success("User Login", {
-        transition: Bounce,
-        position: "top-center",
-        autoClose: 3000,
-      });
-      navigate("/chat");
+      // console.log(response);
+      // console.log("user login ", response.data);
+      const token = response.data.data.accessToken;
+      localStorage.setItem("accessToken", token);
+      // console.log(token);
+      // localStorage.getItem("accessToken", "token");
+      console.log(localStorage);
+      console.log(response.data.data.user.Name);
+      if (response.data && response.data.data && response.data.data.user) {
+        const user_Name = response.data.data.user.Name;
+        const user_email = response.data.data.user.gmail;
+        const user_userName = response.data.data.user.userName;
+        dispatch(setName(user_Name));
+        dispatch(setEmail(user_email));
+        dispatch(setuserName(user_userName));
+        toast.success("User Login", {
+          transition: Bounce,
+          position: "top-center",
+          autoClose: 3000,
+        });
+        navigate("/chat");
+      } else {
+        toast.error("Login successful, but user data is missing", {
+          transition: Bounce,
+          position: "top-center",
+          autoClose: 3000,
+        });
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong", {

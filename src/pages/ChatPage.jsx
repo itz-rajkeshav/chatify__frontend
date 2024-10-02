@@ -3,7 +3,6 @@ import Setting from "../components/Setting.jsx";
 function ChatPage() {
   return (
     <div>
-      ChatPage
       <Setting />
     </div>
   );
