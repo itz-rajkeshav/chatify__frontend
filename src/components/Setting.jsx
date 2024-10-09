@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 function Setting() {
   const [backgroundImage, setBackgroundImage] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);
+  // const [profileImage, setProfileImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [location, setLocation] = useState("Your location");
   const navigate = useNavigate();
-  const { email, name, userName } = useSelector((state) => {
+  const { email, name, userName, profilePic } = useSelector((state) => {
     return state.User;
   });
+  // console.log(profilePic);
   const handleSave = () => {
     setIsEditing(!isEditing);
   };
@@ -79,9 +80,7 @@ function Setting() {
               <div className="overflow-hidden w-full h-full rounded-full">
                 <img
                   src={
-                    profileImage
-                      ? profileImage
-                      : "https://via.placeholder.com/100"
+                    profilePic ? profilePic : "https://via.placeholder.com/100"
                   }
                   alt="Profile"
                   className="w-full h-full object-cover"

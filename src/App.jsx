@@ -12,19 +12,27 @@ import ChatPage from "./pages/ChatPage";
 import { store } from "./components/store.js";
 import Protected from "./components/Protected.jsx";
 import GetData from "./components/GetData.jsx";
+import Slidenav from "./components/sidenav.jsx";
+import Profile from "./components/Profile.jsx";
 function App() {
   return (
     <>
       <Provider store={store}>
-        <Router>
-          <GetData />
-          <Routes>
-            <Route path="/" element={<Navigate to="/register" replace />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/chat" element={<Protected Component={ChatPage} />} />
-          </Routes>
-        </Router>
+        <GetData>
+          <Slidenav />
+          {/* <Profile /> */}
+          {/* <Router>
+            <Routes>
+              <Route path="/" element={<Navigate to="/register" replace />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route
+                path="/chat"
+                element={<Protected Component={ChatPage} />}
+              />
+            </Routes>
+          </Router> */}
+        </GetData>
       </Provider>
       {/* <Chat /> */}
       {/* <Setting /> */}

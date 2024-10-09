@@ -20,8 +20,8 @@ const UserSlice = createSlice({
     setuserName: (state, action) => {
       state.userName = action.payload;
     },
-    setPassword: (state, action) => {
-      state.password = action.payload;
+    setprofilePic: (state, action) => {
+      state.profilePic = action.payload;
     },
     setisSignup: (state) => {
       state.isSignup = true;
@@ -29,6 +29,6 @@ const UserSlice = createSlice({
   },
 });
 
-export const { setName, setEmail, setuserName, setPassword, setisSignup } =
+export const { setName, setEmail, setuserName, setprofilePic, setisSignup } =
   UserSlice.actions;
 export default UserSlice.reducer;
