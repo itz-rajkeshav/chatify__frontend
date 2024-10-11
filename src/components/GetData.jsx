@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 import { setName, setEmail, setuserName, setprofilePic } from "./UserSlice.js";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import Slidenav from "./sidenav.jsx";
 
-const GetData = ({ children }) => {
+const GetData = () => {
   const dispatch = useDispatch();
   const [showLoading, setshowLoading] = useState(true);
+
+  const accessToken = localStorage.getItem("accessToken");
+
+  if (!accessToken) {
+    return <Navigate to="/login" replace />;
+  }
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    // console.log(accessToken);
     if (!accessToken) {
-      console.log("no access token found");
       return;
     }
     // console.log("access token from the userdata side", accessToken);
@@ -37,7 +42,12 @@ const GetData = ({ children }) => {
   return showLoading ? (
     <p className="text-3xl">Loading......................................</p>
   ) : (
-    children
+    <div className="flex">
+      <Slidenav />
+      <div className="main-content">
+        <Outlet />
+      </div>
+    </div>
   );
 };
 export default GetData;
