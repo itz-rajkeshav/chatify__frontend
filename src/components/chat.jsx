@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import { FaSearch, FaPlus } from "react-icons/fa";
+import React from "react";
+import { FaSearch } from "react-icons/fa";
 import ChatUser from "./chatUser";
 import { SearchGlobalUser } from "./SearchGlobalUser";
 
 function Chat() {
-  // const [SearchShown, setSearchShown] = useState(false);
-  // const handleShown = () => {
-  //   setSearchShown(true);
-  // };
   return (
     <>
-      <div className="w-80 h-screen bg-white-100 overflow-y-auto shadow-lg ">
+      <div className="w-80 h-screen bg-white-100  shadow-lg ">
         <div className="text-2xl flex items-center gap-44 font-kosugi text-gray-800 ml-6 mt-10">
           <div>
             <p>Chats</p>
@@ -27,6 +23,9 @@ function Chat() {
           />
           <button>
             <FaSearch className="text-customGreen" />
+            {/* <p className="z-50 w-20 absolute top-11 left-80  overflow-hidden rounded-md bg-black ml-16 px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
+              Add User
+            </p> */}
           </button>
         </div>
 
@@ -36,24 +35,6 @@ function Chat() {
           </div>
           <ChatUser userName={"ssss"} />
         </div>
-        {/* <div className="mt-10">
-          <div className="flex justify-between items-center ml-6 mr-6">
-            <p className="font-kosugi text-gray-800">Groups</p>
-            <button className="text-customGreen hover:text-customGreen-dark transition duration-300">
-              <FaPlus className="text-xl" />
-            </button>
-          </div>
-
-          <div className="pl-3 w-full h-16 bg-gray-50 shadow-md flex flex-col justify-center rounded-lg mt-6 hover:bg-customGreen hover:text-white transition duration-300">
-            <p className="font-bold">Work Group</p>
-            <p className="text-sm">Latest message</p>
-          </div>
-
-          <div className="pl-3 w-full h-16 bg-gray-50 shadow-md flex flex-col justify-center rounded-lg mt-2 hover:bg-customGreen hover:text-white transition duration-300">
-            <p className="font-bold">Friends Group</p>
-            <p className="text-sm">Let's plan a trip!</p>
-          </div>
-        </div> */}
       </div>
     </>
   );

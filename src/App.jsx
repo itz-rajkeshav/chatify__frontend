@@ -13,6 +13,8 @@ import { store } from "./components/store.js";
 import GetData from "./components/GetData.jsx";
 import Setting from "./components/Setting.jsx";
 import Profile from "./components/Profile.jsx";
+import UserChatUi from "./components/UserChatUi";
+// import InitialChatUi from "./components/InitialChatUi";
 function App() {
   const isAuthenticated = true;
   return (
@@ -40,6 +42,7 @@ function App() {
             />
           </Routes>
         </Router>
+        {/* <UserChatUi /> */}
       </Provider>
     </>
   );

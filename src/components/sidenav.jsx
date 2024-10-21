@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaComments, FaCommentDots, FaUser } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { useSelector } from "react-redux";
-import Profile from "./Profile";
-import Setting from "./Setting";
-import Chat from "./chat";
 import clsx from "clsx";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 function Slidenav() {
   const navigate = useNavigate();
   const { profilePic } = useSelector((state) => state.User);
@@ -31,59 +35,74 @@ function Slidenav() {
   }, [location.pathname]);
   return (
     <>
-      <div className="flex">
-        <div className="bg-customGray h-screen w-20 flex flex-col items-center justify-between">
-          <div className="mt-8">
-            <button>
+      <TooltipProvider>
+        <div className="flex">
+          <div className="bg-customGray h-screen w-20 flex flex-col items-center justify-between">
+            <div className="mt-8">
               <FaComments className="text-customGreen text-3xl" />
-            </button>
-          </div>
-          <div className="flex flex-col items-center gap-12 space-y-8">
-            <button onClick={handleChat}>
-              <FaCommentDots
-                className={clsx(
-                  "text-3xl text-customGrayProfile hover:text-customGreen",
-                  {
-                    "text-customGreen": currentSection === "chat",
+            </div>
+            <div className="flex flex-col items-center gap-12 space-y-8">
+              <Tooltip>
+                <TooltipTrigger onClick={handleChat}>
+                  <FaCommentDots
+                    className={clsx(
+                      "text-3xl text-customGrayProfile hover:text-customGreen",
+                      {
+                        "text-customGreen": currentSection === "chat",
+                      }
+                    )}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Chat</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger onClick={handleProfile}>
+                  <FaUser
+                    className={clsx(
+                      "text-3xl text-customGrayProfile hover:text-customGreen",
+                      {
+                        "text-customGreen": currentSection === "profile",
+                      }
+                    )}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Profile</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger onClick={handlesetting}>
+                  <FiSettings
+                    className={clsx(
+                      "text-3xl text-customGrayProfile hover:text-customGreen",
+                      {
+                        "text-customGreen": currentSection === "setting",
+                      }
+                    )}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Setting</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+            <div className="mb-8">
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-customGreen">
+                <img
+                  src={
+                    profilePic ? profilePic : "https://via.placeholder.com/100"
                   }
-                )}
-              />
-            </button>
-            <button onClick={handleProfile}>
-              <FaUser
-                className={clsx(
-                  "text-3xl text-customGrayProfile hover:text-customGreen",
-                  {
-                    "text-customGreen": currentSection === "profile",
-                  }
-                )}
-              />
-            </button>
-            <button onClick={handlesetting}>
-              <FiSettings
-                className={clsx(
-                  "text-3xl text-customGrayProfile hover:text-customGreen",
-                  {
-                    "text-customGreen": currentSection === "setting",
-                  }
-                )}
-              />
-            </button>
-          </div>
-          <div className="mb-8">
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-customGreen">
-              <img
-                src={
-                  profilePic ? profilePic : "https://via.placeholder.com/100"
-                }
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
+          <div></div>
         </div>
-        <div></div>
-      </div>
+      </TooltipProvider>
     </>
   );
 }
