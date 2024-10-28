@@ -9,7 +9,7 @@ const initialState = {
   Id: "",
 };
 const UserSlice = createSlice({
-  name: "user",
+  name: "user_2",
   initialState,
   reducers: {
     setEmail: (state, action) => {

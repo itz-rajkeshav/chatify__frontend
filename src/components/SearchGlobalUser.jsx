@@ -15,13 +15,21 @@ import { FaPlus } from "react-icons/fa";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Bounce, toast, ToastContainer } from "react-toastify";
-
+import { useDispatch } from "react-redux";
+import {
+  setName_2,
+  setEmail_2,
+  setuserName_2,
+  setprofilePic_2,
+  setId_2,
+} from "./UserSlice2.js";
 export function SearchGlobalUser() {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const { Id } = useSelector((state) => {
     return state.User;
   });
+  const dispatch = useDispatch();
   // console.log(`sender id ${Id}`);
 
   useEffect(() => {
@@ -59,7 +67,15 @@ export function SearchGlobalUser() {
         "http://localhost:3000/api/v1/convoMember",
         data
       );
-      console.log(response.data);
+      const Data = response.data;
+      console.log(Data);
+      // console.log(Data.message.userData[1].Name);
+
+      dispatch(setName_2(Data.message.userData[1].Name));
+      dispatch(setEmail_2(Data.message.userData[1].gmail));
+      dispatch(setuserName_2(Data.message.userData[1].userName));
+      dispatch(setprofilePic_2(Data.message.userData[1].avatar));
+      dispatch(setId_2(Data.message.userData[1]._id));
 
       toast.success(`${response.data.data}🙂`, {
         transition: Bounce,
