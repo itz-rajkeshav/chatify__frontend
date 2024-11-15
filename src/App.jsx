@@ -14,6 +14,7 @@ import GetData from "./components/GetData.jsx";
 import Setting from "./components/Setting.jsx";
 import Profile from "./components/Profile.jsx";
 import UserChatUi from "./components/UserChatUi";
+import ShowChat from "./components/showChat";
 // import InitialChatUi from "./components/InitialChatUi";
 function App() {
   const isAuthenticated = true;
@@ -29,6 +30,7 @@ function App() {
               <Route path="/chat" element={<ChatPage />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/setting" element={<Setting />} />
+               <Route path="/chat/convoId/:convoId" element={<ShowChat/>}/>
             </Route>
             <Route
               path="*"

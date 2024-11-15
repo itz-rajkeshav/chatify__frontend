@@ -4,7 +4,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import EmojiPicker from "emoji-picker-react";
 import { FaSmile } from "react-icons/fa";
-function UserChatUi() {
+function  UserChatUi() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [Emoji, setEmoji] = useState(false);
@@ -25,6 +25,7 @@ function UserChatUi() {
     setEmoji(false);
   };
   return (
+    <>
     <div className="w-[calc(100%-20rem)] h-screen relative bg-white overflow-hidden">
       <div className="w-full overflow-hidden ">
         <div className="grid grid-cols-3">
@@ -117,6 +118,7 @@ function UserChatUi() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

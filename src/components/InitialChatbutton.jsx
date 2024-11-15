@@ -69,15 +69,14 @@ export function InitialChatbutton() {
       );
       const Data = response.data;
       console.log(Data);
-      // console.log(Data.message.userData[1].Name);
-
+      // console.log(Data.message.userData[1].Name);  
       dispatch(setName_2(Data.message.userData[1].Name));
       dispatch(setEmail_2(Data.message.userData[1].gmail));
       dispatch(setuserName_2(Data.message.userData[1].userName));
       dispatch(setprofilePic_2(Data.message.userData[1].avatar));
       dispatch(setId_2(Data.message.userData[1]._id));
 
-      toast.success(`${response.data.data}🙂`, {
+      toast.success(`${Data.data}🙂`, {
         transition: Bounce,
         position: "top-center",
         autoClose: 3000,

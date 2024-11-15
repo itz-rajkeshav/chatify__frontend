@@ -44,7 +44,7 @@ function LoginPage() {
       localStorage.setItem("accessToken", token);
       // console.log(token);
       // localStorage.getItem("accessToken", "token");
-      console.log(localStorage);
+      // console.log(localStorage);
       console.log(response.data.data.user.Name);
       if (response.data && response.data.data && response.data.data.user) {
         const user_Name = response.data.data.user.Name;
