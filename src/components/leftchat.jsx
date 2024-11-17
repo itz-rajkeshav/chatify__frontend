@@ -7,22 +7,22 @@ import UserChatUi from "./UserChatUi";
 import InitialChatUi from "./InitialChatUi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 function Chat() {
   // const [Showchat, setShowChat] = useState(false);
   const [UserConvolength, setUserConvolength] = useState(0);
   const [conversations, setConversations] = useState([]);
-  // const { profilePic_2, email_2, name_2, userName_2 } = useSelector((state) => {
-  //   return state.user_2 || {};
-  // });
-  const navigate=useNavigate();
+  const { profilePic_2, email_2, name_2, userName_2 } = useSelector((state) => {
+    return state.user_2 || {};
+  });
+  const { profilePic, email, name, userName } = useSelector((state) => {
+    return state.User;
+  });
+  const navigate = useNavigate();
   const handleShow = (id) => {
-    // setShowChat(true);
-    // const response = axios.get("http://localhost:3000/api/v1/profile/get");
     console.log(id);
     navigate(`/chat/convoId/${id}`);
-
   };
+
   const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchallconvo = async () => {
@@ -35,11 +35,14 @@ function Chat() {
         const allConvolength = response.data.data;
         setUserConvolength(allConvolength);
         const conversationsData = response.data.message;
-        // setConversations(response.data.data.message);
         const formattedConversations = conversationsData.map((conv) => ({
           _id: conv._id,
-          Name: conv.userData[1].Name, // Adjust the index if needed
+          Name:
+            conv.userData[1].Name === name
+              ? conv.userData[0].Name
+              : conv.userData[1].Name,
         }));
+        console.log(formattedConversations);
         setConversations(formattedConversations);
       } catch (error) {
         console.log(error);
@@ -47,8 +50,6 @@ function Chat() {
     };
     fetchallconvo();
   }, []);
-  console.log(conversations);
-
   return (
     <>
       <div className="flex">
@@ -83,7 +84,7 @@ function Chat() {
                     <button
                       key={conversation._id}
                       className="w-full"
-                      onClick={()=>handleShow(conversation._id)}
+                      onClick={() => handleShow(conversation._id)}
                     >
                       <ChatUser Name={conversation.Name} />
                     </button>
@@ -97,7 +98,6 @@ function Chat() {
             )}
           </div>
         </div>
-        {/* {Showchat ? <UserChatUi /> : <InitialChatUi />} */}
       </div>
     </>
   );
