@@ -31,7 +31,7 @@ function Chat() {
           "http://localhost:3000/api/v1/allConvo",
           { headers: { Authorization: `Bearer ${accessToken}` } }
         );
-        console.log(response);
+        // console.log(response);
         const allConvolength = response.data.data;
         setUserConvolength(allConvolength);
         const conversationsData = response.data.message;
@@ -42,7 +42,7 @@ function Chat() {
               ? conv.userData[0].Name
               : conv.userData[1].Name,
         }));
-        console.log(formattedConversations);
+        // console.log(formattedConversations);
         setConversations(formattedConversations);
       } catch (error) {
         console.log(error);

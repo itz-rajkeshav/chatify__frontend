@@ -30,7 +30,7 @@ function App() {
               <Route path="/chat" element={<ChatPage />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/setting" element={<Setting />} />
-               <Route path="/chat/convoId/:convoId" element={<ShowChat/>}/>
+              <Route path="/chat/convoId/:convoId" element={<ShowChat />} />
             </Route>
             <Route
               path="*"
