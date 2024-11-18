@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axiosInstance from "@/lib/axios";
 
 function RegisterPage() {
   const [visibility, setVisibility] = useState(true);
@@ -44,15 +45,11 @@ function RegisterPage() {
       console.log(formData);
 
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/v1/users/register",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        const response = await axiosInstance.post("/users/register", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         toast.success("User Registered 🙂", {
           transition: Bounce,
           position: "top-center",

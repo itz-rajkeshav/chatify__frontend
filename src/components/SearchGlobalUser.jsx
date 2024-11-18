@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "@/lib/axios";
 // import {
 //   setName_2,
 //   setEmail_2,
@@ -28,7 +29,7 @@ import { useNavigate } from "react-router-dom";
 export function SearchGlobalUser() {
   const [users, setUsers] = useState([]);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const { Id } = useSelector((state) => {
     return state.User;
@@ -40,11 +41,11 @@ export function SearchGlobalUser() {
   //   return state.User;
   // });
   // console.log(name_2);
-  
+
   useEffect(() => {
     if (searchTerm) {
-      axios
-        .get("http://localhost:3000/api/v1/search", {
+      axiosInstance
+        .get("/search", {
           params: {
             user: searchTerm,
           },
@@ -73,10 +74,7 @@ export function SearchGlobalUser() {
     };
     // setid=ReceiverId;
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/convoMember",
-        data
-      );
+      const response = await axiosInstance.post("/convoMember", data);
       const Data = response.data;
       console.log(Data);
       // console.log(Data.message.userData[1].Name);
@@ -95,7 +93,6 @@ export function SearchGlobalUser() {
       console.log(Data.data);
       // console.log(`/chat/convoId=${Data.message._id}`);
       navigate(`/chat/convoId/${Data.message._id}`);
-      
     } catch (error) {
       console.log(error);
     }

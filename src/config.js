@@ -1,0 +1,1 @@
+export  const  API_URL="https://chatify-backend-bq1c.onrender.com/api/v1";

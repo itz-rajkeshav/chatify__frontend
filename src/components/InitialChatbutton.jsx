@@ -23,6 +23,7 @@ import {
   setprofilePic_2,
   setId_2,
 } from "./UserSlice2.js";
+import axiosInstance from "@/lib/axios.js";
 export function InitialChatbutton() {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -63,13 +64,10 @@ export function InitialChatbutton() {
       ReceivedUser: ReceiverId,
     };
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/convoMember",
-        data
-      );
+      const response = await axiosInstance.post("/convoMember", data);
       const Data = response.data;
       console.log(Data);
-      // console.log(Data.message.userData[1].Name);  
+      // console.log(Data.message.userData[1].Name);
       dispatch(setName_2(Data.message.userData[1].Name));
       dispatch(setEmail_2(Data.message.userData[1].gmail));
       dispatch(setuserName_2(Data.message.userData[1].userName));

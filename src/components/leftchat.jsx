@@ -7,6 +7,7 @@ import UserChatUi from "./UserChatUi";
 import InitialChatUi from "./InitialChatUi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "@/lib/axios";
 function Chat() {
   // const [Showchat, setShowChat] = useState(false);
   const [UserConvolength, setUserConvolength] = useState(0);
@@ -23,14 +24,10 @@ function Chat() {
     navigate(`/chat/convoId/${id}`);
   };
 
-  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchallconvo = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/allConvo",
-          { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
+        const response = await axiosInstance.get("/allConvo");
         // console.log(response);
         const allConvolength = response.data.data;
         setUserConvolength(allConvolength);

@@ -11,6 +11,7 @@ import axios from "axios";
 import { Navigate, Outlet } from "react-router-dom";
 import Slidenav from "./sidenav.jsx";
 import { Progress } from "@/components/ui/progress";
+import axiosInstance from "@/lib/axios.js";
 
 const GetData = () => {
   const dispatch = useDispatch();
@@ -30,10 +31,7 @@ const GetData = () => {
     const getprofileData = async () => {
       try {
         setshowLoading(true);
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/profile/get",
-          { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
+        const response = await axiosInstance.get("/profile/get");
         // console.log(response.data);
         dispatch(setprofilePic(response.data.data.avatar));
         dispatch(setEmail(response.data.data.gmail));

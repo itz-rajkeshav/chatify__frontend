@@ -14,6 +14,7 @@ import {
   setprofilePic_2,
 } from "./UserSlice2";
 import { io } from "socket.io-client";
+import axiosInstance from "@/lib/axios";
 
 function ShowChat() {
   const [messages, setMessages] = useState([]);
@@ -63,20 +64,14 @@ function ShowChat() {
     const fetchUserData = async () => {
       try {
         // Fetch user profile
-        const response = await axios.post(
-          "http://localhost:3000/api/v1/getProfile",
-          {
-            convoId: convoId,
-          }
-        );
+        const response = await axiosInstance.post("/getProfile", {
+          convoId: convoId,
+        });
 
         // Fetch messages
-        const messagesResponse = await axios.post(
-          "http://localhost:3000/api/v1/getMessages",
-          {
-            convoId: convoId,
-          }
-        );
+        const messagesResponse = await axiosInstance.post("/getMessages", {
+          convoId: convoId,
+        });
         const prevMessage = messagesResponse.data.data.map((item) => ({
           message: item.message,
           sender: item.sender,
@@ -142,10 +137,7 @@ function ShowChat() {
       convoId: convoId,
     };
     //sending to the db
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/users/messages",
-      messageData
-    );
+    const response = await axiosInstance.post("/users/messages", messageData);
     console.log(response.data);
     //sending to the server
     socket.emit("sendMessage", messageData);
@@ -175,18 +167,12 @@ function ShowChat() {
 
     const fetchUserData = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/v1/getProfile",
-          {
-            convoId: convoId,
-          }
-        );
-        const response1 = await axios.post(
-          "http://localhost:3000/api/v1/getMessages",
-          {
-            convoId: convoId,
-          }
-        );
+        const response = await axiosInstance.post("/getProfile", {
+          convoId: convoId,
+        });
+        const response1 = await axiosInstance.post("/getMessages", {
+          convoId: convoId,
+        });
         console.log(response1.data);
 
         const userData = response.data.data.userData;

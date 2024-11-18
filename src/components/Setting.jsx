@@ -10,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@radix-ui/react-tooltip";
+import axiosInstance from "@/lib/axios";
 
 function Setting() {
   const [ShowIcon, setShowIcon] = useState(false);
@@ -29,9 +30,7 @@ function Setting() {
     console.log(localStorage);
     navigate("/login");
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/users/logout"
-      );
+      const response = await axiosInstance.post("/users/logout");
       console.log("user logout successfully");
     } catch (error) {
       console.log(error);

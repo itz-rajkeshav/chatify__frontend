@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setName, setEmail, setuserName } from "../components/UserSlice.js";
+import axiosInstance from "@/lib/axios.js";
 function LoginPage() {
   const [Visiblity, setVisiblity] = useState("false");
   const navigate = useNavigate();
@@ -29,15 +30,11 @@ function LoginPage() {
     // Convert the object to JSON
     const jsonData = JSON.stringify(dataObject);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/users/login",
-        jsonData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axiosInstance.post("/users/login", jsonData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       // console.log(response);
       // console.log("user login ", response.data);
       const token = response.data.data.accessToken;
