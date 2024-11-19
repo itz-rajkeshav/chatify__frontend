@@ -7,14 +7,14 @@ function InitialChatUi() {
     <>
       <div className=" overflow-hidden h-screen bg-gray-50 pl-4 ">
         <div className="flex">
-          <img src="public\backgroung.png"></img>
-          <img src="public\backgroung.png"></img>
-          <img src="public\backgroung.png"></img>
+          <img src="backgroung.png"></img>
+          <img src="backgroung.png"></img>
+          <img src="backgroung.png"></img>
         </div>
         <div className="flex">
-          <img src="public\backgroung.png"></img>
-          <img src="public\backgroung.png"></img>
-          <img src="public\backgroung.png"></img>
+          <img src="backgroung.png"></img>
+          <img src="backgroung.png"></img>
+          <img src="backgroung.png"></img>
         </div>
         <div className="h-28 w-28 bg-green-100 flex justify-center items-center rounded-full absolute top-1/3 left-2/4 ml-36">
           <FaComments className="text-customGreen text-6xl" />

@@ -206,7 +206,7 @@ function ShowChat() {
             {[...Array(6)].map((_, index) => (
               <img
                 key={index}
-                src="/public/backgroung.png"
+                src="backgroung.png"
                 alt="background"
                 className="w-full h-full object-cover"
               />
