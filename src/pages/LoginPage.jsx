@@ -90,7 +90,7 @@ function LoginPage() {
         <div>
           <img
             className="w-full h-[100%]"
-            src="public\Conversation4.gif"
+            src="Conversation4.gif"
             alt="Conversation animation"
           />
         </div>

@@ -16,27 +16,36 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
-import {
-  setName_2,
-  setEmail_2,
-  setuserName_2,
-  setprofilePic_2,
-  setId_2,
-} from "./UserSlice2.js";
-import axiosInstance from "@/lib/axios.js";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "@/lib/axios";
+// import {
+//   setName_2,
+//   setEmail_2,
+//   setuserName_2,
+//   setprofilePic_2,
+//   setId_2,
+// } from "./UserSlice2.js";
+// import Showprofile from "./showprofile.jsx";
 export function InitialChatbutton() {
   const [users, setUsers] = useState([]);
+
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const { Id } = useSelector((state) => {
     return state.User;
   });
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // console.log(`sender id ${Id}`);
+  // const [id,setid]=useState("");
+  // const {name_2,Id_2} = useSelector((state) => {
+  //   return state.User;
+  // });
+  // console.log(name_2);
 
   useEffect(() => {
     if (searchTerm) {
-      axios
-        .get("http://localhost:3000/api/v1/search", {
+      axiosInstance
+        .get("/search", {
           params: {
             user: searchTerm,
           },
@@ -63,22 +72,27 @@ export function InitialChatbutton() {
       ConvoStartUser: Id,
       ReceivedUser: ReceiverId,
     };
+    // setid=ReceiverId;
     try {
       const response = await axiosInstance.post("/convoMember", data);
       const Data = response.data;
       console.log(Data);
       // console.log(Data.message.userData[1].Name);
-      dispatch(setName_2(Data.message.userData[1].Name));
-      dispatch(setEmail_2(Data.message.userData[1].gmail));
-      dispatch(setuserName_2(Data.message.userData[1].userName));
-      dispatch(setprofilePic_2(Data.message.userData[1].avatar));
-      dispatch(setId_2(Data.message.userData[1]._id));
+      // console.log(Id_2);
+      // dispatch(setName_2(Data.message.userData[1].Name));
+      // dispatch(setEmail_2(Data.message.userData[1].gmail));
+      // dispatch(setuserName_2(Data.message.userData[1].userName));
+      // dispatch(setprofilePic_2(Data.message.userData[1].avatar));
+      // dispatch(setId_2(Data.message.userData[1]._id));
 
       toast.success(`${Data.data}🙂`, {
         transition: Bounce,
         position: "top-center",
         autoClose: 3000,
       });
+      console.log(Data.data);
+      // console.log(`/chat/convoId=${Data.message._id}`);
+      navigate(`/chat/convoId/${Data.message._id}`);
     } catch (error) {
       console.log(error);
     }

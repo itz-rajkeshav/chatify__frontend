@@ -15,6 +15,7 @@ import {
 } from "./UserSlice2";
 import { io } from "socket.io-client";
 import axiosInstance from "@/lib/axios";
+import { API_URL1 } from "@/config";
 
 function ShowChat() {
   const [messages, setMessages] = useState([]);
@@ -32,7 +33,7 @@ function ShowChat() {
 
   // Initialize socket connection
   useEffect(() => {
-    const newSocket = io("http://localhost:3000");
+    const newSocket = io(API_URL1);
     setSocket(newSocket);
 
     // Socket event listeners
