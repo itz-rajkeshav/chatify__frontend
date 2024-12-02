@@ -74,47 +74,49 @@ function RegisterPage() {
   };
 
   return (
-    <div className="bg-customGreen w-full h-screen flex items-center justify-end">
+    <div className="bg-customGreen min-h-screen  flex flex-col lg:flex-row items-center justify-center p-4">
       <ToastContainer />
-      <div className="h-screen flex-1 flex flex-col items-center">
-        <div className="text-center mb-8 mt-20">
+      <div className=" w-full lg:w-1/2 flex flex-col items-center justify-center px-4 py-8 lg:p-12">
+        <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2">
             <FaComments className="text-white text-4xl" />
             <h2 className="text-3xl font-bold font-kosugi text-white">
               Chatify
             </h2>
           </div>
-          <p className="mt-3 font-medium font-poppins text-customText">
+          <p className="mt-3 font-medium font-poppins text-customText text-center">
             Simple chats, real connections
           </p>
         </div>
-        <div>
+        <div className="max-w-md w-full">
           <img
-            className="w-full h-[100%]"
+            className="w-full h-auto"
             src="Conversation4.gif"
             alt="Conversation animation"
           />
         </div>
       </div>
-      <div className="w-7/12 bg-white h-[92%] p-8 rounded-2xl mr-8 flex items-center flex-col">
-        <div className="flex flex-col items-center">
-          <div className="">
-            <p className="font-serif text-gray-800 text-2xl">
+      <div className="w-full lg:w-1/2 bg-white p-6 md:p-12 rounded-2xl  flex flex-col items-center justify-center ">
+        <div className="w-full max-w-md space-y-5">
+          <div className="flex justify-center ">
+            <p className="font-serif text-gray-800 text-2xl ">
               Register Account
             </p>
           </div>
           <div>
-            <p className="text-gray-700 mt-2">
+            <p className="text-gray-700 flex justify-center ">
               Get your free Chatify account now
             </p>
           </div>
         </div>
         <form onSubmit={formik.handleSubmit}>
-          <div className="flex flex-col mt-2 ">
-            <label className="font-poppins mb-2 text-gray-800 ">Email</label>
+          <div className="space-y-1 w-full">
+            <label className=" block font-poppins  mt-4 text-gray-800 ">
+              Email
+            </label>
             <input
               type="email"
-              className="h-10 w-96 font-poppins text-gray-900 border-borderColor border-2 p-4 outline-none rounded-sm"
+              className="h-10 w-full font-poppins text-gray-900 border-borderColor border-2  p-4 outline-none rounded-sm"
               placeholder="Enter your email id"
               name="gmail"
               onChange={formik.handleChange}
@@ -122,16 +124,18 @@ function RegisterPage() {
               value={formik.values.gmail}
             />
             {formik.touched.gmail && formik.errors.gmail ? (
-              <div className="text-red-500 absolute top-48 mt-3 text-sm">
+              <div className="text-red-500  mt-1 text-sm">
                 {formik.errors.gmail}
               </div>
             ) : null}
           </div>
-          <div className="flex flex-col mt-3 ">
-            <label className="font-poppins mb-2 text-gray-800 ">Name</label>
+          <div>
+            <label className="block font-poppins mb-1 mt-1 text-gray-800">
+              Name
+            </label>
             <input
               type="text"
-              className="h-10 w-96 font-poppins text-gray-900 border-borderColor border-2 p-4 outline-none rounded-sm"
+              className="h-10 w-full font-poppins text-gray-900 border-borderColor border-2 p-4 outline-none rounded-sm"
               placeholder="Enter your name"
               name="Name"
               onChange={formik.handleChange}
@@ -139,16 +143,18 @@ function RegisterPage() {
               value={formik.values.Name}
             />
             {formik.touched.Name && formik.errors.Name ? (
-              <div className="text-red-500 text-sm absolute top-72 mb-5">
+              <div className="text-red-500 text-sm mt-1">
                 {formik.errors.Name}
               </div>
             ) : null}
           </div>
-          <div className="flex flex-col mt-3 ">
-            <label className="font-poppins mb-2 text-gray-800 ">Username</label>
+          <div>
+            <label className=" block font-poppins mb-1 mt-1 text-gray-800 ">
+              Username
+            </label>
             <input
               type="text"
-              className="h-10 w-96 font-poppins text-gray-900 border-borderColor border-2 p-4 outline-none rounded-sm"
+              className="h-10 w-full font-poppins text-gray-900 border-borderColor border-2 p-4 outline-none rounded-sm"
               placeholder="Enter your username"
               name="userName"
               onChange={formik.handleChange}
@@ -156,17 +162,19 @@ function RegisterPage() {
               value={formik.values.userName}
             />
             {formik.touched.userName && formik.errors.userName ? (
-              <div className="text-red-500 absolute top-80 mt-12 pt-1 text-sm">
+              <div className="text-red-500 mt-1  text-sm">
                 {formik.errors.userName}
               </div>
             ) : null}
           </div>
-          <div className="flex flex-col mt-3 ">
-            <label className="font-poppins mb-2 text-gray-800 ">Password</label>
-            <div className="flex items-center h-10 w-96 border-2 p-2 pl-4 rounded-sm border-borderColor">
+          <div>
+            <label className=" block font-poppins mb-1 mt-1 text-gray-800 ">
+              Password
+            </label>
+            <div className="flex items-center h-10 w-full border-2  rounded-sm border-borderColor">
               <input
                 type={visibility ? "password" : "text"}
-                className="w-full outline-none text-gray-900"
+                className="w-full px-4 outline-none text-gray-900"
                 placeholder="Enter your password"
                 name="password"
                 onChange={formik.handleChange}
@@ -175,48 +183,49 @@ function RegisterPage() {
               />
               <span
                 onClick={handleVisibility}
-                className="cursor-pointer text-gray-500 ml-2"
+                className="cursor-pointer text-gray-500 mr-2"
               >
                 {visibility ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
             {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-500 absolute  top-88 mt-16 pt-2  text-sm">
+              <div className="text-red-500 mt-1  text-sm">
                 {formik.errors.password}
               </div>
             ) : null}
           </div>
-          <div className="flex flex-col mt-4 mr-20 ">
-            <label className="font-poppins mb-2 text-gray-800 ">
+          <div className=" ">
+            <label className="block font-poppins mb-1 mt-1 text-gray-800 ">
               Profile Photo
             </label>
             <input
               type="file"
               name="avatar"
+              className="w-full"
               onChange={(event) => {
                 formik.setFieldValue("avatar", event.target.files[0]);
               }}
             />
           </div>
-          <div className="mt-5">
+          <div className="">
             <button
               type="submit"
-              className="h-10 w-96 bg-customGreen rounded-sm text-white"
+              className="h-10 w-full mt-2 bg-customGreen rounded-sm text-white hover:opacity-90 transition-opacity"
             >
               Submit
             </button>
           </div>
         </form>
-        <div className="mt-4 flex gap-2">
-          <p className="">Already have an account?</p>
+        <div className="text-center mt-4">
+          <p className="inline-block mr-2">Already have an account?</p>
           <button
-            className="text-customGreen"
+            className="text-customGreen hover:underline"
             onClick={() => navigate("/login")}
           >
             Login
           </button>
         </div>
-        <div className="mt-6">
+        <div className="text-center mt-6">
           <p className="text-gray-400">Made with love ❤️ by Keshav Raj</p>
         </div>
       </div>

@@ -73,10 +73,10 @@ function LoginPage() {
     }
   };
   return (
-    <div className="bg-customGreen w-full h-screen flex items-center justify-end">
+    <div className="bg-customGreen min-h-screen flex flex-col lg:flex-row items-center justify-center">
       <ToastContainer />
-      <div className="h-screen flex-1 flex flex-col  items-center">
-        <div className="text-center mb-8 mt-20">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-4 py-8 lg:p-12">
+        <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2">
             <FaComments className="text-white text-4xl" />
             <h2 className="text-3xl font-bold font-kosugi text-white">
@@ -87,73 +87,92 @@ function LoginPage() {
             Simple chats, real connections
           </p>
         </div>
-        <div>
+        <div className="max-w-md w-full">
           <img
-            className="w-full h-[100%]"
+            className="w-full h-auto"
             src="Conversation4.gif"
             alt="Conversation animation"
           />
         </div>
       </div>
-      <div className="w-7/12 bg-white h-[92%] p-12 rounded-2xl mr-8 flex items-center flex-col ">
-        <div className="flex flex-col items-center">
-          <div className="mt-4">
-            <p className="font-serif text-gray-800 text-2xl">Welcome Back !</p>
-          </div>
-          <div>
-            <p className="text-gray-700 mt-2">Sign in to continue to Chatify</p>
-          </div>
-        </div>
-        <form onSubmit={handlelogin}>
-          <div className="flex flex-col mt-14 ">
-            <label className="font-poppins mb-2 text-gray-800 ">Username</label>
-            <input
-              type="text"
-              className="h-10 w-96  font-poppins text-gray-900 border-borderColor border-2 p-4 outline-none rounded-sm"
-              placeholder="Enter your Username"
-              name="userName"
-            ></input>
-          </div>
-          <div className="flex flex-col mt-6 ">
-            <label className="font-poppins mb-2 text-gray-800 ">Password</label>
-            <div className="flex items-center h-10 w-96 border-2 p-2 rounded-sm border-borderColor">
-              <input
-                type={Visiblity ? "password" : "text"}
-                className="w-full outline-none text-gray-900"
-                placeholder="Enter your password"
-                name="password"
-              />
-              <span
-                onClick={handleVisibility}
-                className="cursor-pointer text-gray-500 ml-2"
-              >
-                {Visiblity ? <FaEyeSlash /> : <FaEye />}
-              </span>
+      <div className="w-full lg:w-1/2 bg-white p-6 md:p-12  md:mr-2 rounded-2xl flex items-center justify-center">
+        <div className="w-full max-w-md">
+          <div className="flex flex-col items-center mb-8">
+            <div>
+              <p className="font-serif text-gray-800 text-2xl text-center">
+                Welcome Back !
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-700 mt-2 text-center">
+                Sign in to continue to Chatify
+              </p>
             </div>
           </div>
-          <div className="mt-6 mr-64">
-            <input type="checkbox"></input>
-            <label className="font-poppins mb-2 text-gray-800 ml-2 ">
-              Remember me
-            </label>
+
+          <form onSubmit={handlelogin} className="w-full">
+            <div className="flex flex-col mb-4">
+              <label className="font-poppins mb-2 text-gray-800">
+                Username
+              </label>
+              <input
+                type="text"
+                className="h-10 w-full font-poppins text-gray-900 border-borderColor border-2 p-4 outline-none rounded-sm"
+                placeholder="Enter your Username"
+                name="userName"
+              />
+            </div>
+
+            <div className="flex flex-col mb-4">
+              <label className="font-poppins mb-2 text-gray-800">
+                Password
+              </label>
+              <div className="flex items-center h-10 w-full border-2 p-2 rounded-sm border-borderColor">
+                <input
+                  type={Visiblity ? "password" : "text"}
+                  className="w-full outline-none text-gray-900"
+                  placeholder="Enter your password"
+                  name="password"
+                />
+                <span
+                  onClick={handleVisibility}
+                  className="cursor-pointer text-gray-500 ml-2"
+                >
+                  {Visiblity ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+            </div>
+
+            <div className="mb-4 flex items-center">
+              <input type="checkbox" className="mr-2" />
+              <label className="font-poppins text-gray-800">Remember me</label>
+            </div>
+
+            <div className="mb-4">
+              <button
+                type="submit"
+                className="h-10 w-full bg-customGreen rounded-sm text-white hover:opacity-90 transition-opacity"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+
+          <div className="text-center">
+            <div className="mb-4 flex justify-center gap-2">
+              <p>Don't have an account?</p>
+              <button
+                className="text-customGreen hover:underline"
+                onClick={handleNavigation}
+              >
+                Register
+              </button>
+            </div>
+
+            <div>
+              <p className="text-gray-400">Made with love ❤️ by Keshav raj</p>
+            </div>
           </div>
-          <div className="mt-6">
-            <button
-              type="submit"
-              className="h-10 w-96 bg-customGreen rounded-sm text-white"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-        <div className="mt-6 flex gap-2">
-          <p className="">Don't have an account ?</p>
-          <button className="text-customGreen" onClick={handleNavigation}>
-            Register
-          </button>
-        </div>
-        <div className="mt-32">
-          <p className="text-gray-400">Made with love ❤️ by Keshav raj</p>
         </div>
       </div>
     </div>
