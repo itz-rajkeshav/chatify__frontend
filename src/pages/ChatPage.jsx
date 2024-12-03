@@ -5,7 +5,7 @@ function ChatPage() {
   return (
     <div className="flex ">
       <Chat />
-      <InitialChatUi/>
+      <InitialChatUi />
     </div>
   );
 }

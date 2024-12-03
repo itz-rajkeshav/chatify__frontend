@@ -4,6 +4,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import EmojiPicker from "emoji-picker-react";
 import { FaSmile } from "react-icons/fa";
+
 function UserChatUi() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -24,44 +25,34 @@ function UserChatUi() {
     setInput(input + emoji.emoji);
     setEmoji(false);
   };
+  const backgroundImages = [
+    "backgroung.png",
+    "backgroung.png",
+    "backgroung.png",
+    "backgroung.png",
+    "backgroung.png",
+    "backgroung.png",
+    "backgroung.png",
+    "backgroung.png",
+    "backgroung.png",
+  ];
   return (
     <>
-      <div className="w-[calc(100%-20rem)] h-screen relative bg-white overflow-hidden">
-        <div className="w-full overflow-hidden ">
-          <div className="grid grid-cols-3">
-            <img
-              src="backgroung.png"
-              alt="background"
-              className="w-full h-full object-cover"
-            />
-            <img
-              src="backgroung.png"
-              alt="background"
-              className="w-full h-full object-cover"
-            />
-            <img
-              src="backgroung.png"
-              alt="background"
-              className="w-full h-full object-cover"
-            />
-            <img
-              src="backgroung.png"
-              alt="background"
-              className="w-full h-full object-cover"
-            />
-            <img
-              src="backgroung.png"
-              alt="background"
-              className="w-full h-full object-cover"
-            />
-            <img
-              src="backgroung.png"
-              alt="background"
-              className="w-full h-full object-cover"
-            />
+      <div className="w-full h-screen relative bg-white overflow-hidden">
+        <div className="w-full overflow-hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1">
+            {backgroundImages.map((image, index) => (
+              <div key={index} className="aspect-square overflow-hidden">
+                <img
+                  src={image}
+                  alt={`background ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
-        <div className="absolute top-0 left-0 right-0 flex items-center bg-customGreen p-4 h-20">
+        <div className="absolute top-0 left-0 right-0 flex items-center bg-customGreen p-4 h-20 z-10">
           <div className="flex items-center space-x-3">
             <img
               src={
@@ -92,12 +83,11 @@ function UserChatUi() {
         </div>
 
         {Emoji && (
-          <div className="absolute bottom-20 right-6">
+          <div className="absolute bottom-20 right-6 z-20">
             <EmojiPicker onEmojiClick={handleEmojiSelect} height={400} />
           </div>
         )}
-
-        <div className="absolute bottom-0 left-0 right-0 border-t  border-gray-200 bg-white p-4">
+        <div className="absolute bottom-0 left-0 right-0 border-t border-gray-200 bg-white p-4">
           <div className="flex space-x-2">
             <input
               type="text"
