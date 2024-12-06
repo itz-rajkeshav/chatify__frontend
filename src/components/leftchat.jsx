@@ -3,9 +3,6 @@ import { FaSearch } from "react-icons/fa";
 import ChatUser from "./chatUser";
 import { SearchGlobalUser } from "./SearchGlobalUser";
 import { useSelector } from "react-redux";
-import UserChatUi from "./UserChatUi";
-import InitialChatUi from "./InitialChatUi";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "@/lib/axios";
 function Chat() {
@@ -50,16 +47,13 @@ function Chat() {
   return (
     <>
       <div className="flex">
-        <div className="w-80 h-screen bg-gray-100 shadow-lg">
-          <div className="text-2xl flex items-center gap-44 font-kosugi text-gray-800 ml-6 mt-10">
-            <div>
-              <p>Chats</p>
-            </div>
-            <div>
-              <SearchGlobalUser />
-            </div>
+        <div className="w-full sm:w-72 md:w-80 lg:w-96 h-screen bg-gray-100 shadow-lg overflow-y-auto ">
+          <div className="text-2xl flex items-center justify-between  font-kosugi text-gray-800 mb-6 ml-2 mt-12">
+            <p>Chats</p>
+            <SearchGlobalUser />
           </div>
-          <div className="ml-4 flex w-72 bg-slate-200 items-center pr-4 mt-6 rounded-full shadow-md">
+          <div className="flex  bg-slate-200 items-center pr-4 mt-6 rounded-full shadow-md">
+            {/* mb */}
             <input
               type="text"
               className="h-10 bg-slate-200 w-full text-gray-700 pl-4 pr-2 rounded-full outline-none"
@@ -71,11 +65,11 @@ function Chat() {
           </div>
 
           <div className="mt-10">
-            <div className="font-kosugi text-gray-800 ml-6 mb-6">
+            <div className="font-kosugi text-gray-800  mb-6">
               <p>Direct Messages</p>
             </div>
             {UserConvolength > 0 ? (
-              <div>
+              <div className="space-y-2">
                 {conversations.map((conversation) => {
                   return (
                     <button
@@ -89,7 +83,7 @@ function Chat() {
                 })}
               </div>
             ) : (
-              <p className="ml-6 text-gray-500">
+              <p className="ml-6 text-gray-500 text-center">
                 Select a user to start chatting
               </p>
             )}

@@ -19,7 +19,7 @@ function Profile() {
           }}
         >
           <div className="flex justify-between items-center absolute top-4 w-full px-6">
-            <div className="text-xl ml-3 font-kosugi text-white ">
+            <div className="text-xl ml-5  font-kosugi text-white ">
               <p>My Profile</p>
             </div>
           </div>
