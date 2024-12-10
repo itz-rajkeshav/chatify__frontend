@@ -214,7 +214,7 @@ function ShowChat() {
           </div>
         </div>
         {/* Header */}
-        <div className="absolute top-0 left-[400px] right-0 flex items-center bg-opacity-60 backdrop-blur-md bg-gray-100/80 p-4 h-20 shadow-lg rounded-md">
+        <div className="absolute top-0 left-[464px] right-0 flex items-center bg-opacity-60 backdrop-blur-md bg-gray-100/80 p-4 h-20 shadow-lg rounded-md">
           <div className="flex items-center space-x-3">
             <img
               src={profilePic_2 || "https://via.placeholder.com/100"}
@@ -234,7 +234,7 @@ function ShowChat() {
         </div>
 
         {/* Messages */}
-        <div className="absolute top-24 bottom-20 left-[390px] right-2 overflow-y-auto px-4">
+        <div className="absolute top-24 bottom-20 left-[450px] right-2 overflow-y-auto px-4">
           {messages.map((msg, index) => {
             const isSentByMe = msg.sender === email;
             return (
@@ -283,7 +283,7 @@ function ShowChat() {
             <EmojiPicker onEmojiClick={handleEmojiSelect} height={400} />
           </div>
         )}
-        <div className="absolute bottom-0 left-[400px] right-0 border-t border-gray-200 bg-white p-4">
+        <div className="absolute bottom-0 left-[464px] right-0 border-t border-gray-200 bg-white p-4">
           <div className="flex space-x-2">
             <input
               type="text"

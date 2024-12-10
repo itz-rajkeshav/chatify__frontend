@@ -5,7 +5,7 @@ import { InitialChatbutton } from "./InitialChatbutton";
 function InitialChatUi() {
   return (
     <>
-      <div className=" overflow-hidden h-screen bg-gray-50 pl-4 ">
+      <div className=" overflow-hidden  h-screen bg-gray-50 pl-4 ">
         <div className="flex">
           <img src="backgroung.png"></img>
           <img src="backgroung.png"></img>

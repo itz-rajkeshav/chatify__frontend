@@ -47,7 +47,7 @@ function Chat() {
   return (
     <>
       <div className="flex">
-        <div className="w-full sm:w-72 md:w-80 lg:w-96 h-screen bg-gray-100 shadow-lg overflow-y-auto ">
+        <div className="w-full sm:w-72 md:w-64  lg:w-96 h-screen bg-gray-100 shadow-lg overflow-y-auto ">
           <div className="text-2xl flex items-center justify-between  font-kosugi text-gray-800 mb-6 ml-2 mt-12">
             <p>Chats</p>
             <SearchGlobalUser />

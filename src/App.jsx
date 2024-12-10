@@ -15,7 +15,6 @@ import Setting from "./components/Setting.jsx";
 import Profile from "./components/Profile.jsx";
 import UserChatUi from "./components/UserChatUi";
 import ShowChat from "./components/showChat";
-// import InitialChatUi from "./components/InitialChatUi";
 function App() {
   const isAuthenticated = true;
   return (
