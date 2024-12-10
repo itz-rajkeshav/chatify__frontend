@@ -18,11 +18,20 @@ import axiosInstance from "@/lib/axios";
 import { API_URL1 } from "@/config";
 
 function ShowChat() {
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 640);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [Emoji, setEmoji] = useState(false);
   const [socket, setSocket] = useState(null);
+  // Handle responsive design
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 640);
+    };
 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const { profilePic, email, name } = useSelector((state) => state.User);
   const { profilePic_2, email_2, name_2 } = useSelector(
     (state) => state.user_2 || {}
@@ -31,7 +40,7 @@ function ShowChat() {
   const dispatch = useDispatch();
   const { convoId } = useParams();
 
-  // Initialize socket connection
+  //socket connection
   useEffect(() => {
     const newSocket = io(API_URL1);
     setSocket(newSocket);
@@ -69,7 +78,7 @@ function ShowChat() {
           convoId: convoId,
         });
 
-        // Fetch messages
+        // Fetch recent messages
         const messagesResponse = await axiosInstance.post("/getMessages", {
           convoId: convoId,
         });
@@ -78,7 +87,6 @@ function ShowChat() {
           sender: item.sender,
           type: item.sender === email ? "sent" : "received",
         }));
-        console.log(prevMessage);
 
         // Set user data
         const userData = response.data.data.userData;
@@ -93,8 +101,6 @@ function ShowChat() {
           dispatch(setuserName_2(userData[0].userName));
           dispatch(setprofilePic_2(userData[0].avatar));
         }
-
-        // Set messages from API
         if (
           messagesResponse.data &&
           Array.isArray(messagesResponse.data.messages)
@@ -174,7 +180,7 @@ function ShowChat() {
         const response1 = await axiosInstance.post("/getMessages", {
           convoId: convoId,
         });
-        console.log(response1.data);
+        // console.log(response1.data);
 
         const userData = response.data.data.userData;
         if (userData[0].Name === name) {
@@ -197,115 +203,245 @@ function ShowChat() {
   }, [convoId, name, dispatch]);
 
   return (
-    <div className="flex w-full h-screen">
-      <Chat />
-      <div className="flex-1 h-screen bg-gray-200 overflow-hidden">
-        {/* Background Images */}
-        <div className="w-full overflow-hidden">
-          <div className="grid grid-cols-3">
-            {[...Array(6)].map((_, index) => (
-              <img
-                key={index}
-                src="/backgroung.png"
-                alt="background"
-                className="w-full h-full object-cover"
-              />
-            ))}
-          </div>
-        </div>
-        {/* Header */}
-        <div className="absolute top-0 left-[464px] right-0 flex items-center bg-opacity-60 backdrop-blur-md bg-gray-100/80 p-4 h-20 shadow-lg rounded-md">
-          <div className="flex items-center space-x-3">
-            <img
-              src={profilePic_2 || "https://via.placeholder.com/100"}
-              alt="Profile"
-              className="rounded-full w-12 h-12 border-2 border-white shadow-md"
-            />
-            <div>
-              <span className="text-gray-700 font-semibold text-lg">
-                {name_2 || "Name"}
-              </span>
-              <div className="flex items-center space-x-2 mt-1">
-                <div className="w-3 h-3 bg-green-800 rounded-full animate-pulse"></div>
-                <span className="text-green-900 text-sm">Online</span>
+    <>
+      {!isMobileView && (
+        <div className="flex w-full h-screen">
+          <Chat />
+          <div className="flex-1 h-screen bg-gray-200 overflow-hidden">
+            {/* Background Images */}
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {[...Array(12)].map((_, index) => (
+                <img
+                  key={index}
+                  src="/backgroung.png"
+                  alt="background"
+                  className="w-full h-40 object-cover sm:h-52 md:h-64 lg:h-80 xl:h-[calc(100vh/3)]"
+                />
+              ))}
+            </div>
+
+            {/* Header */}
+            <div className="absolute top-0 md:left-[335px] lg:left-[464px] right-0 flex items-center bg-opacity-60 backdrop-blur-md bg-gray-100/80 p-4 h-20 shadow-lg rounded-md">
+              <div className="flex items-center space-x-3">
+                <img
+                  src={profilePic_2 || "https://via.placeholder.com/100"}
+                  alt="Profile"
+                  className="rounded-full w-12 h-12 border-2 border-white shadow-md"
+                />
+                <div>
+                  <span className="text-gray-700 font-semibold text-lg">
+                    {name_2 || "Name"}
+                  </span>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <div className="w-3 h-3 bg-green-800 rounded-full animate-pulse"></div>
+                    <span className="text-green-900 text-sm">Online</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Messages */}
+            <div className="absolute top-24 bottom-20 md:left-[335px] lg:left-[450px] right-2 overflow-y-auto px-4">
+              {messages.map((msg, index) => {
+                const isSentByMe = msg.sender === email;
+                return (
+                  <div
+                    key={index}
+                    className={`flex my-3 ${
+                      isSentByMe ? "justify-end mr-2" : "justify-start ml-4"
+                    }`}
+                  >
+                    <div
+                      className={`relative max-w-[70%] ${
+                        isSentByMe ? "ml-auto" : "mr-auto"
+                      }`}
+                    >
+                      <div
+                        className={`absolute -top-2 ${
+                          isSentByMe ? "-right-1" : "-left-1"
+                        } z-10`}
+                      >
+                        <img
+                          src={isSentByMe ? profilePic : profilePic_2}
+                          alt="avatar"
+                          className="w-6 h-6 rounded-full border-2 border-white shadow-sm"
+                        />
+                      </div>
+
+                      <div
+                        className={`relative p-3 ${
+                          isSentByMe
+                            ? "bg-green-800 text-white  rounded-lg rounded-tr-none"
+                            : "bg-white text-gray-800 rounded-lg rounded-tl-none"
+                        }`}
+                      >
+                        <p className="break-words">{msg.message}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            {Emoji && (
+              <div className="absolute bottom-20 right-6">
+                <EmojiPicker onEmojiClick={handleEmojiSelect} height={400} />
+              </div>
+            )}
+
+            {/* Input Section */}
+            <div className="absolute bottom-0 md:left-[335px] lg:left-[464px] right-0 border-t border-gray-200 bg-white p-4">
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={input}
+                  onKeyPress={handleKeyPress}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Type a message..."
+                  className="flex-1 p-2 border mb-1 border-gray-300 rounded-lg focus:outline-none focus:border-customGreen"
+                />
+                <button className="text-amber-600 text-2xl" onClick={showEmoji}>
+                  <FaSmile />
+                </button>
+                <Button
+                  onClick={handleSend}
+                  className="w-14 h-10 bg-customGreen hover:bg-green-600"
+                >
+                  <BsFillSendFill />
+                </Button>
               </div>
             </div>
           </div>
         </div>
+      )}
+      {isMobileView && (
+        <div className="flex flex-col lg:flex-row w-screen h-screen">
+          {/* Sidebar */}
+          <div className="hidden lg:block w-[450px]">
+            <Chat />
+          </div>
 
-        {/* Messages */}
-        <div className="absolute top-24 bottom-20 left-[450px] right-2 overflow-y-auto px-4">
-          {messages.map((msg, index) => {
-            const isSentByMe = msg.sender === email;
-            return (
-              // box
-              <div
-                key={index}
-                className={`flex my-3 ${
-                  isSentByMe ? "justify-end mr-2" : "justify-start ml-4"
-                }`}
-              >
-                <div
-                  className={`relative max-w-[70%] ${
-                    isSentByMe ? "ml-auto" : "mr-auto"
-                  }`}
-                >
-                  {/* Avatar */}
-                  <div
-                    className={`absolute -top-2 ${
-                      isSentByMe ? "-right-1" : "-left-1"
-                    } z-10`}
-                  >
-                    <img
-                      src={isSentByMe ? profilePic : profilePic_2}
-                      alt="avatar"
-                      className="w-6 h-6 rounded-full border-2 border-white shadow-sm"
-                    />
-                  </div>
+          {/* Chat Section */}
+          <div className="flex-1 h-full bg-gray-200 relative overflow-hidden">
+            {/* Background Images */}
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {[...Array(6)].map((_, index) => (
+                <img
+                  key={index}
+                  src="/backgroung.png"
+                  alt="background"
+                  className="w-full h-40 object-cover"
+                />
+              ))}
+            </div>
 
-                  {/* Message */}
-                  <div
-                    className={`relative p-3 ${
-                      isSentByMe
-                        ? "bg-green-800 text-white  rounded-lg rounded-tr-none"
-                        : "bg-white text-gray-800 rounded-lg rounded-tl-none"
-                    }`}
-                  >
-                    <p className="break-words">{msg.message}</p>
+            {/* Header */}
+            <div className="absolute top-0 left-0 lg:left-[450px] right-0 flex items-center bg-opacity-60 backdrop-blur-md bg-gray-100/80 p-4 h-20 shadow-lg">
+              <div className="flex items-center space-x-4">
+                <img
+                  src={profilePic_2 || "https://via.placeholder.com/100"}
+                  alt="Profile"
+                  className="rounded-full w-12 h-12 ml-8 border-2 border-white"
+                />
+                <div>
+                  <span className="text-gray-700 font-semibold text-lg">
+                    {name_2 || "Name"}
+                  </span>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <div className="w-3 h-3 bg-green-800 rounded-full animate-pulse"></div>
+                    <span className="text-green-900 text-sm">Online</span>
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
-        {Emoji && (
-          <div className="absolute bottom-20 right-6">
-            <EmojiPicker onEmojiClick={handleEmojiSelect} height={400} />
+            </div>
+
+            {/* Messages */}
+            <div className="absolute top-24 bottom-20 left-0 lg:left-[450px] right-0 overflow-y-auto px-4">
+              {messages.map((msg, index) => {
+                const isSentByMe = msg.sender === email;
+                return (
+                  <div
+                    key={index}
+                    className={`flex items-end my-4 ${
+                      isSentByMe ? "justify-end" : "justify-start"
+                    }`}
+                  >
+                    {/* Profile Picture for Received Messages */}
+                    {!isSentByMe && (
+                      <div className="w-8 h-8 flex-shrink-0">
+                        <img
+                          src={
+                            profilePic_2 || "https://via.placeholder.com/100"
+                          }
+                          alt="Profile"
+                          className="w-full h-full rounded-full border border-gray-300"
+                        />
+                      </div>
+                    )}
+
+                    {/* Message Bubble */}
+                    <div
+                      className={`relative max-w-[70%] px-4 ${
+                        isSentByMe ? "ml-3" : "mr-3"
+                      }`}
+                    >
+                      <div
+                        className={`relative p-4 shadow-lg ${
+                          isSentByMe
+                            ? "bg-green-800 text-white rounded-lg rounded-tr-none"
+                            : "bg-white text-gray-800 rounded-lg rounded-tl-none"
+                        }`}
+                      >
+                        <p className="break-words">{msg.message}</p>
+                      </div>
+                    </div>
+
+                    {/* Profile Picture for Sent Messages */}
+                    {isSentByMe && (
+                      <div className="w-8 h-8 flex-shrink-0">
+                        <img
+                          src={profilePic || "https://via.placeholder.com/100"}
+                          alt="Profile"
+                          className="w-full h-full rounded-full border border-gray-300"
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {Emoji && (
+              <div className="absolute bottom-20 right-6">
+                <EmojiPicker onEmojiClick={handleEmojiSelect} height={400} />
+              </div>
+            )}
+
+            {/* Input Section */}
+            <div className="absolute bottom-0 left-0 lg:left-[450px] right-0 border-t border-gray-200 bg-white p-4">
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={input}
+                  onKeyPress={handleKeyPress}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Type a message..."
+                  className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none"
+                />
+                <button className="text-amber-600 text-2xl" onClick={showEmoji}>
+                  <FaSmile />
+                </button>
+                <Button
+                  onClick={handleSend}
+                  className="w-14 h-10 bg-green-800 hover:bg-green-600"
+                >
+                  <BsFillSendFill />
+                </Button>
+              </div>
+            </div>
           </div>
-        )}
-        <div className="absolute bottom-0 left-[464px] right-0 border-t border-gray-200 bg-white p-4">
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              value={input}
-              onKeyPress={handleKeyPress}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
-              className="flex-1 p-2 border mb-1 border-gray-300 rounded-lg focus:outline-none focus:border-customGreen"
-            />
-            <button className="text-amber-600 text-2xl" onClick={showEmoji}>
-              <FaSmile />
-            </button>
-            <Button
-              onClick={handleSend}
-              className="w-14 h-10 bg-customGreen hover:bg-green-600"
-            >
-              <BsFillSendFill />
-            </Button>
-          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

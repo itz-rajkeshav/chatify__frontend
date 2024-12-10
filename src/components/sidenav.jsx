@@ -115,7 +115,7 @@ function Slidenav() {
           <button
             onClick={() => setMobileMenuOpen(!MobileMenuOpen)}
             className={clsx(
-              "fixed top-4 left-4 z-50 text-customGreen text-2xl",
+              "fixed top-4 left-3 z-50 text-customGreen text-2xl",
               {
                 "text-white":
                   currentSection === "profile" || currentSection === "setting",
@@ -152,7 +152,7 @@ function Slidenav() {
                     )}
                   >
                     <FaCommentDots className="text-2xl" />
-                    <span>Chat</span>
+                    <span>Chats</span>
                   </div>
                   <div
                     onClick={handleProfile}
