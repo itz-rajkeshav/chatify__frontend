@@ -215,7 +215,7 @@ function ShowChat() {
                   key={index}
                   src="/backgroung.png"
                   alt="background"
-                  className="w-full h-40 object-cover sm:h-52 md:h-64 lg:h-80 xl:h-[calc(100vh/3)]"
+                  className="w-full h-40 object-cover sm:h-52 md:h-64 lg:h-80"
                 />
               ))}
             </div>
@@ -324,7 +324,7 @@ function ShowChat() {
           <div className="flex-1 h-full bg-gray-200 relative overflow-hidden">
             {/* Background Images */}
             <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-              {[...Array(6)].map((_, index) => (
+              {[...Array(12)].map((_, index) => (
                 <img
                   key={index}
                   src="/backgroung.png"

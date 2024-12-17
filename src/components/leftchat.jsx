@@ -42,12 +42,11 @@ function Chat() {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="w-full sm:w-72 md:w-64 lg:w-96 h-full bg-gray-100 shadow-lg overflow-y-auto">
+      <div className="w-full sm:w-screen md:w-64 lg:w-96 h-full bg-gray-100 shadow-lg overflow-y-auto">
         <div className="text-2xl flex items-center justify-between font-kosugi text-gray-800 mb-6 p-4">
-          <p className="ml-4">Chats</p>
+          <p className="ml-6">Chats</p>
           <SearchGlobalUser />
         </div>
-
         <div className="flex bg-slate-200 items-center px-4 py-2 rounded-full shadow-md mx-4">
           <input
             type="text"
@@ -58,7 +57,6 @@ function Chat() {
             <FaSearch className="text-customGreen" />
           </button>
         </div>
-
         <div className="mt-6 p-4">
           <div className="font-kosugi text-gray-800 mb-4">
             <p>Direct Messages</p>

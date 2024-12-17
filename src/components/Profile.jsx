@@ -13,7 +13,6 @@ function Profile() {
         <div
           className="w-80 h-40 bg-customGreen relative"
           style={{
-            // backgroundImage: backgroundImage ? `url(${backgroundImage})` : "",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

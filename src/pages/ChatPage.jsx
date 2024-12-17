@@ -5,7 +5,6 @@ import InitialChatUi from "@/components/InitialChatUi.jsx";
 function ChatPage() {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 640);
 
-  // Handle responsive design
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 640);
@@ -17,10 +16,7 @@ function ChatPage() {
 
   return (
     <div className="flex">
-      {/* Chat component always renders */}
       <Chat />
-
-      {/* InitialChatUi only renders on non-mobile screens */}
       {!isMobileView && <InitialChatUi />}
     </div>
   );
