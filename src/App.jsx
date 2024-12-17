@@ -13,9 +13,7 @@ import { store } from "./components/store.js";
 import GetData from "./components/GetData.jsx";
 import Setting from "./components/Setting.jsx";
 import Profile from "./components/Profile.jsx";
-import UserChatUi from "./components/UserChatUi";
 import ShowChat from "./components/showChat";
-import Video from "./components/video";
 function App() {
   const isAuthenticated = true;
   return (
@@ -45,8 +43,7 @@ function App() {
           </Routes>
         </Router>
       </Provider>
-      {/* <UserChatUi /> 
-        {/* <Video /> */}
+      {/* <UserChatUi />  */}
     </>
   );
 }
