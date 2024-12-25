@@ -14,6 +14,7 @@ import GetData from "./components/GetData.jsx";
 import Setting from "./components/Setting.jsx";
 import Profile from "./components/Profile.jsx";
 import ShowChat from "./components/showChat";
+import VideoCall from "./components/videoCall";
 function App() {
   const isAuthenticated = true;
   return (
@@ -42,6 +43,7 @@ function App() {
             />
           </Routes>
         </Router>
+        {/* <VideoCall /> */}
       </Provider>
       {/* <UserChatUi />  */}
     </>

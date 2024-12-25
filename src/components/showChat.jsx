@@ -7,6 +7,7 @@ import EmojiPicker from "emoji-picker-react";
 import { FaSmile } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { FaVideo } from "react-icons/fa";
 import {
   setEmail_2,
   setName_2,
