@@ -1,8 +1,6 @@
 <h1>Chatify</h1>
 Chatify is a modern chat application designed to provide seamless communication with an intuitive and visually appealing user interface. The app is built with a focus on functionality, usability, and extendability, making it perfect for real-time conversations.</br>
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-<h3>Key Features
-</h3>
+<h3>Key Features</h3>
   
 <ul>
 <li>
