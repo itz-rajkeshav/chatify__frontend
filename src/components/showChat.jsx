@@ -17,8 +17,10 @@ import {
 import { io } from "socket.io-client";
 import axiosInstance from "@/lib/axios";
 import { API_URL1 } from "@/config";
+import VideoCall from "./videoCall";
 
 function ShowChat() {
+  const [showVideoCall, setShowVideoCall] = useState(false);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 640);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -168,6 +170,9 @@ function ShowChat() {
     setInput(input + emoji.emoji);
     setEmoji(false);
   };
+  const handleVideoCall = () => {
+    setShowVideoCall(true);
+  };
 
   // Fetch user data
   useEffect(() => {
@@ -182,7 +187,6 @@ function ShowChat() {
           convoId: convoId,
         });
         // console.log(response1.data);
-
         const userData = response.data.data.userData;
         if (userData[0].Name === name) {
           dispatch(setName_2(userData[1].Name));
@@ -199,10 +203,8 @@ function ShowChat() {
         console.error("Error fetching user data:", error);
       }
     };
-
     fetchUserData();
   }, [convoId, name, dispatch]);
-
   return (
     <>
       {!isMobileView && (
@@ -223,20 +225,27 @@ function ShowChat() {
 
             {/* Header */}
             <div className="absolute top-0 md:left-[335px] lg:left-[464px] right-0 flex items-center bg-opacity-60 backdrop-blur-md bg-gray-100/80 p-4 h-20 shadow-lg rounded-md">
-              <div className="flex items-center space-x-3">
-                <img
-                  src={profilePic_2 || "https://via.placeholder.com/100"}
-                  alt="Profile"
-                  className="rounded-full w-12 h-12 border-2 border-white shadow-md"
-                />
-                <div>
-                  <span className="text-gray-700 font-semibold text-lg">
-                    {name_2 || "Name"}
-                  </span>
-                  <div className="flex items-center space-x-2 mt-1">
-                    <div className="w-3 h-3 bg-green-800 rounded-full animate-pulse"></div>
-                    <span className="text-green-900 text-sm">Online</span>
+              <div className="flex justify-between w-full items-center">
+                <div className="flex items-center space-x-3">
+                  <img
+                    src={profilePic_2 || "https://via.placeholder.com/100"}
+                    alt="Profile"
+                    className="rounded-full w-12 h-12 border-2 border-white shadow-md"
+                  />
+                  <div>
+                    <span className="text-gray-700 font-semibold text-lg">
+                      {name_2 || "Name"}
+                    </span>
+                    <div className="flex items-center space-x-2 mt-1">
+                      <div className="w-3 h-3 bg-green-800 rounded-full animate-pulse"></div>
+                      <span className="text-green-900 text-sm">Online</span>
+                    </div>
                   </div>
+                </div>
+                <div className="text-green-800 mr-7 ">
+                  <button onClick={handleVideoCall}>
+                    <FaVideo size={23}></FaVideo>
+                  </button>
                 </div>
               </div>
             </div>
@@ -310,6 +319,9 @@ function ShowChat() {
                   <BsFillSendFill />
                 </Button>
               </div>
+              {/* {showVideoCall && (
+                <VideoCall onClose={() => setShowVideoCall(false)} />
+              )} */}
             </div>
           </div>
         </div>

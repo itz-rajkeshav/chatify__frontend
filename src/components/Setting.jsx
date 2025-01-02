@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCamera, FaUser, FaPencilAlt, FaSave } from "react-icons/fa";
 import StatusSelect from "./StatusSelect";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setName, setEmail, setprofilePic, setcoverImage } from "./UserSlice";
 import {
   Tooltip,
   TooltipContent,
@@ -11,19 +12,41 @@ import {
   TooltipTrigger,
 } from "@radix-ui/react-tooltip";
 import axiosInstance from "@/lib/axios";
-
 function Setting() {
   const [ShowIcon, setShowIcon] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [location, setLocation] = useState("Your location");
+  const { email, name, userName, profilePic, Id, coverImage } = useSelector(
+    (state) => {
+      return state.User;
+    }
+  );
+  const [backgroundImage, setBackgroundImage] = useState(coverImage);
+  const [location, setLocation] = useState("India"); //currently hardcode it :)
   const navigate = useNavigate();
-  const { email, name, userName, profilePic } = useSelector((state) => {
-    return state.User;
-  });
-  const handleSave = () => {
+  const [changeProfilepic, setchangeProfilepic] = useState(profilePic);
+  const [ChangeName, setChangeName] = useState(name);
+  const [ChangeEmail, setChangeEmail] = useState(email);
+  const dispatch = useDispatch();
+  const jsonData = {
+    Id: Id,
+    gmail: ChangeEmail,
+    Name: ChangeName,
+    location: location,
+    avatar: changeProfilepic,
+    coverImage: backgroundImage,
+  };
+  const handleSave = async () => {
+    try {
+      const response = await axiosInstance.post("/updateUser", jsonData);
+    } catch (error) {
+      console.log(error);
+    }
     setShowIcon(!ShowIcon);
     setIsEditing(!isEditing);
+    dispatch(setName(ChangeName));
+    dispatch(setEmail(ChangeEmail));
+    dispatch(setprofilePic(changeProfilepic));
+    dispatch(setcoverImage(backgroundImage));
   };
   const handleLogout = async () => {
     localStorage.removeItem("accessToken", "");
@@ -48,23 +71,62 @@ function Setting() {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
+      setchangeProfilepic(imageUrl);
     }
   };
-  console.log(userName);
+  // console.log(userName);
+  // useEffect(() => {
+  //   if ("geolocation" in navigator) {
+  //     console.log("Geolocation is available");
+  //     navigator.geolocation.getCurrentPosition(
+  //       async (position) => {
+  //         console.log("Got position:", position.coords);
+  //         try {
+  //           const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude}+${position.coords.longitude}&key=apikey`;
+  //           const response = await axios.get(apiUrl);
+  //           console.log(response.data);
+  //         } catch (error) {
+  //           console.log("API Error:", error.message);
+  //           if (error.response) {
+  //             console.log("Error response:", error.response.data);
+  //           }
+  //         }
+  //       },
+  //       (error) => {
+  //         // console.log("Geolocation error:", error.message);
+  //         console.error("Geolocation error:", error.code, error.message);
+  //         switch (error.code) {
+  //           case 1:
+  //             console.log("User denied location access.");
+  //             break;
+  //           case 2:
+  //             console.log("Position unavailable.");
+  //             break;
+  //           case 3:
+  //             console.log("Timeout occurred.");
+  //             break;
+  //           default:
+  //             console.log("Unknown error.");
+  //         }
+  //       }
+  //     );
+  //   } else {
+  //     console.log("Geolocation is NOT available");
+  //   }
+  // }, []);
 
   return (
     <>
       <TooltipProvider>
         <div className="w-80 h-screen bg-white-100  shadow-lg">
-          <div
-            className="w-80 h-40 bg-customGreen relative"
-            style={{
-              backgroundImage: backgroundImage ? `url(${backgroundImage})` : "",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
+          <div className=" bg-customGreen relative h-40 w-80">
+            {backgroundImage && (
+              <img
+                src={backgroundImage}
+                className="h-40 w-80 object-cover absolute top-0 left-0"
+                alt="Background"
+              />
+            )}
             <div className="flex justify-between items-center absolute top-4 w-full px-6">
               <div className="text-xl ml-5 font-kosugi text-white ">
                 <p>Settings</p>
@@ -95,8 +157,8 @@ function Setting() {
                 <div className="overflow-hidden w-full h-full rounded-full">
                   <img
                     src={
-                      profilePic
-                        ? profilePic
+                      changeProfilepic
+                        ? changeProfilepic
                         : "https://via.placeholder.com/100"
                     }
                     alt="Profile"
@@ -149,12 +211,12 @@ function Setting() {
             {isEditing ? (
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={ChangeName}
+                onChange={(e) => setChangeName(e.target.value)}
                 className="text-gray-900 outline-none border border-gray-300 rounded px-2 py-1"
               />
             ) : (
-              <div className="text-gray-900">{name || "Your Name"}</div>
+              <div className="text-gray-900">{ChangeName || "Your Name"}</div>
             )}
           </div>
 
@@ -165,12 +227,12 @@ function Setting() {
             {isEditing ? (
               <input
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={ChangeEmail}
+                onChange={(e) => setChangeEmail(e.target.value)}
                 className="text-gray-900 outline-none border border-gray-300 rounded px-2 py-1"
               />
             ) : (
-              <div className="text-gray-900">{email || "your email"}</div>
+              <div className="text-gray-900">{ChangeEmail || "your email"}</div>
             )}
           </div>
 

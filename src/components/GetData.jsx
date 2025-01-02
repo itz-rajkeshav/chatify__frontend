@@ -4,6 +4,7 @@ import {
   setEmail,
   setuserName,
   setprofilePic,
+  setcoverImage,
   setId,
 } from "./UserSlice.js";
 import { useDispatch } from "react-redux";
@@ -29,8 +30,10 @@ const GetData = () => {
         setProgress(30);
         const response = await axiosInstance.get("/profile/get");
         setProgress(60);
+        console.log(response.data);
 
         // Dispatching user data
+        dispatch(setcoverImage(response.data.data.coverImage));
         dispatch(setprofilePic(response.data.data.avatar));
         dispatch(setEmail(response.data.data.gmail));
         dispatch(setName(response.data.data.Name));

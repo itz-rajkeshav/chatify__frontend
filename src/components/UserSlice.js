@@ -6,6 +6,7 @@ const initialState = {
   isSignup: "",
   password: "",
   profilePic: "",
+  coverImage:"",
   Id: "",
 };
 const UserSlice = createSlice({
@@ -24,6 +25,9 @@ const UserSlice = createSlice({
     setprofilePic: (state, action) => {
       state.profilePic = action.payload;
     },
+    setcoverImage:(state,action)=>{
+      state.coverImage=action.payload;
+    },
     setisSignup: (state) => {
       state.isSignup = true;
     },
@@ -40,5 +44,6 @@ export const {
   setprofilePic,
   setisSignup,
   setId,
+  setcoverImage,
 } = UserSlice.actions;
 export default UserSlice.reducer;

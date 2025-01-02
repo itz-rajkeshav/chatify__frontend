@@ -4,19 +4,22 @@ import { BiUser } from "react-icons/bi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 function Profile() {
-  const { profilePic, email, name, userName } = useSelector((state) => {
-    return state.User;
-  });
+  const { profilePic, email, name, userName, coverImage } = useSelector(
+    (state) => {
+      return state.User;
+    }
+  );
   return (
     <>
       <div className="w-80 h-screen bg-white-100  shadow-lg">
-        <div
-          className="w-80 h-40 bg-customGreen relative"
-          style={{
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
+        <div className="w-80 h-40 bg-customGreen relative">
+          {coverImage && (
+            <img
+              src={coverImage}
+              className="h-40 w-80 object-cover absolute top-0 left-0"
+              alt="Background"
+            />
+          )}
           <div className="flex justify-between items-center absolute top-4 w-full px-6">
             <div className="text-xl ml-5  font-kosugi text-white ">
               <p>My Profile</p>
