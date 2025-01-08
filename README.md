@@ -32,3 +32,12 @@ Customizable UI: Chat components take up the full width of the screen without al
 <img src="https://i.ibb.co/8DN3FkS/Screenshot-2025-01-02-224605.png" alt="Screenshot-2025-01-02-224605" border="0">
 <img src="https://i.ibb.co/9wbn62P/Screenshot-20250102-224700-Chrome.jpg" alt="Screenshot-20250102-224700-Chrome" border="0" height="350px" width="140px" />
 </div>
+
+## Contribution
+
+We welcome contributions to Chatify Frontend! To contribute:
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Submit a pull request with detailed changes.
+
+---
