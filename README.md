@@ -41,3 +41,6 @@ We welcome contributions to Chatify Frontend! To contribute:
 3. Submit a pull request with detailed changes.
 
 ---
+For questions or support, reach out to:
+- **Email**: itsrajkeshav@gmail.com
+- **GitHub**: [itz-rajkeshav](https://github.com/itz-rajkeshav)
