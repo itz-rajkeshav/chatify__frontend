@@ -12,8 +12,10 @@ import { Navigate, Outlet } from "react-router-dom";
 import Slidenav from "./sidenav.jsx";
 import { Progress } from "@/components/ui/progress";
 import axiosInstance from "@/lib/axios.js";
+import ErrorPage from "./ErrorPage.jsx";
 
 const GetData = () => {
+  const [isLoadData, setisLoadData] = useState(false);
   const dispatch = useDispatch();
   const [showLoading, setShowLoading] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -32,7 +34,6 @@ const GetData = () => {
         setProgress(60);
         console.log(response.data);
 
-        // Dispatching user data
         dispatch(setcoverImage(response.data.data.coverImage));
         dispatch(setprofilePic(response.data.data.avatar));
         dispatch(setEmail(response.data.data.gmail));
@@ -44,19 +45,25 @@ const GetData = () => {
         setShowLoading(false);
       } catch (error) {
         console.error("Error fetching profile data:", error);
-        setShowLoading(false); // Ensure loading stops even on error
+        setisLoadData(true);
+        setShowLoading(false);
       }
     };
 
     getProfileData();
   }, [dispatch]);
 
-  return showLoading ? (
-    <div className="w-full h-screen flex flex-col justify-center items-center">
-      <div className="font-serif text-2xl mb-7">Chatify</div>
-      <Progress value={progress} />
-      <div className="w-96 h-20"></div>
-    </div>
+  if (showLoading) {
+    return (
+      <div className="w-full h-screen flex flex-col justify-center items-center">
+        <div className="font-serif text-2xl mb-7">Chatify</div>
+        <Progress value={progress} />
+        <div className="w-96 h-20"></div>
+      </div>
+    );
+  }
+  return isLoadData ? (
+    <ErrorPage />
   ) : (
     <div className="flex">
       <Slidenav />
