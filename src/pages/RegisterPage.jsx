@@ -3,7 +3,6 @@ import { FaComments, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";

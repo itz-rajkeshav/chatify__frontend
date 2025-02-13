@@ -66,7 +66,6 @@ function Setting() {
       setBackgroundImage(imageUrl);
     }
   };
-
   const handleProfileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
